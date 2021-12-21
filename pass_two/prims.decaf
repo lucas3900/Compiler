@@ -1,0 +1,11 @@
+void math()
+{
+	int x;
+	string y;
+	double z;
+	bool a;
+	a = true;
+	x = 1;
+	z = 1.3;
+	y = "hello";
+}

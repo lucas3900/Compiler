@@ -1,0 +1,9 @@
+interface hello {}
+interface x {}
+interface y {}
+
+class z implements hello,x,y,a,b,c {}
+
+interface a {}
+interface b {}
+interface c {}

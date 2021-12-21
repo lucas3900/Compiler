@@ -1,0 +1,35 @@
+interface Colorable {
+	void color(int r, int g, int b);
+	void print();
+}
+
+class Ball implements Colorable {
+	int r;
+	int g;
+	int b;
+
+	void color(int b, int g, int r){
+		this.r = b;
+		this.g = g;
+		this.b = r;
+	}
+
+	void print() {
+		Print(r, " ", g, " ", b);
+	}
+}
+
+void main() {
+	Ball x;
+	Colorable y;
+
+	x = New(Ball);
+
+	x.color(12, 42, 67);
+	x.print();
+
+	y = x;
+
+	y.color(54, 32, 21);
+	y.print();
+}

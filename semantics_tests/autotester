@@ -1,0 +1,25 @@
+#! /usr/bin/bash
+
+for f in `cat semantics_tests/MANIFEST | sed 48q | grep -oE 'test[0-9][0-9][0-9]'`
+do
+	if ./decafc --sem semantics_tests/$f.decaf > /dev/null; then
+		echo "PASSED: $f";
+	else
+		
+		echo "FAILED: $f";
+	fi
+done
+
+echo "";
+echo "Now testing Failures:"
+echo "";
+
+for f in `cat semantics_tests/MANIFEST | tail -n +49 | grep -oE 'test[0-9][0-9][0-9]'`
+do
+	if ./decafc --sem semantics_tests/$f.decaf 2> /dev/null > /dev/null; then
+		echo "FAILED: $f";
+	else
+		
+		echo "PASSED: $f";
+	fi
+done

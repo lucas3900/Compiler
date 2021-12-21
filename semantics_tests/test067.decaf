@@ -1,0 +1,15 @@
+class A implements Setter {
+  int x;
+  void set(int y) { x = y; }
+  int get() { return x; }
+  void add(A other) { x = x + other.x; }
+}
+
+interface Setter {
+  void set(double x);
+}
+
+void main()
+{
+}
+

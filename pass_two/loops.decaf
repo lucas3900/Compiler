@@ -1,0 +1,14 @@
+void main() {
+	int i;
+	int x;
+	bool y;
+	y = true;
+	for (; y ;){
+		x = x + 1;
+	}
+
+	while (x < 5) {
+		i = i + 1;
+	}
+
+}

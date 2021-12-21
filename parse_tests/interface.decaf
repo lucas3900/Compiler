@@ -1,0 +1,18 @@
+interface Colorable {
+	void setColor(int a, int b);
+	int  getColor();
+}
+
+class Square implements Colorable {
+	int x;
+	int y;
+	
+	void setColor(int a, int b) {
+		x = a;
+		y = b;
+	}
+
+	int getColor() {
+		return x + y;
+	}
+}

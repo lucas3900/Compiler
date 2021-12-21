@@ -1,0 +1,10 @@
+interface foo {
+	void hello(int x, string y);
+	int bar();
+	string wahh();
+}
+
+class a implements foo {
+	void hello(int x, string y) {}
+	int bar() { return -1; }
+}

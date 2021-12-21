@@ -1,0 +1,6 @@
+/* A Test that looks at Tokenizing array indexing*/
+
+foo arrayDeclaration[] = [1 , 2, 3]
+arrayDeclaration[1] = arrayDeclaration[2] + 17
+
+

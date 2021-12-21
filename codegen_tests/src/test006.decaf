@@ -1,0 +1,16 @@
+int x;
+
+void main()
+{
+  int x;
+  int y;
+  bool z;
+  x = 6;
+  y = 7;
+  z = x < y;
+  Print(z);
+}
+
+/* Output:
+true
+*/

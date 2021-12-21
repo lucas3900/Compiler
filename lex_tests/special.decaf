@@ -1,0 +1,6 @@
+void func(){
+Print("hello", true, false, 7, 9.4);
+break;
+return;
+return "hello";
+}

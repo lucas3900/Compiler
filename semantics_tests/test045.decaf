@@ -1,0 +1,9 @@
+
+class A {}
+
+void main()
+{
+  B a;
+  a = New(A);
+}
+

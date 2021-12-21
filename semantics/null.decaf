@@ -1,0 +1,6 @@
+class hello {} 
+
+void func() {
+	hello x; 
+	x = null;
+}

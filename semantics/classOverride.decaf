@@ -1,0 +1,8 @@
+class b {
+	void hello(int x) {}
+}
+
+class c extends b {
+
+	void hello(int x) {}
+}

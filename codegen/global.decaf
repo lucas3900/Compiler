@@ -1,0 +1,6 @@
+int x;
+
+void main() {
+	x = 4;
+	Print(x);
+}

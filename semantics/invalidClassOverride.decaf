@@ -1,0 +1,12 @@
+class b {
+	void hello(int x) {}
+}
+
+class c extends b {
+	void hello(int y) {}
+}
+
+// should be invalid
+class a extends c {
+	void hello(string y) {}
+}

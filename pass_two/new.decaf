@@ -1,0 +1,7 @@
+class hello {}
+
+int main()
+{
+	hello y;
+	y = New(hello);
+}

@@ -1,0 +1,35 @@
+interface A {
+	void foo(int x);
+	int getter();
+}
+
+
+class B {
+	int q;
+	void setter(int x) { this.q = x; }
+}
+
+
+class C extends B implements A {
+	void foo (int y) {Print(y);}
+	int getter() {return q;}
+	void cmp(A other) {Print(this.q > other.getter()); } 
+}
+
+
+void main()
+{
+	C one;
+	C two;
+	A three;
+	one = New(C);
+	one.setter(4);
+	two = New(C);
+	two.setter(7);
+
+
+	three = two;
+	one.cmp(three);
+
+
+}

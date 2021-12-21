@@ -1,0 +1,8 @@
+class x {}
+class y {}
+
+void main()
+{
+	x i;
+	i = New(y);
+}

@@ -1,0 +1,12 @@
+void foo(int [] Ary)
+{
+  Print(Ary[0]);
+}	
+
+void main()
+{
+  int [] [] A;
+  int [] B;
+  foo(A);
+}
+

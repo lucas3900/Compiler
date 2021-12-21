@@ -1,0 +1,14 @@
+
+class A {
+  void foo() 
+  { 
+    Print("Hi mom!");
+  }
+}
+
+void main()
+{
+  New(A).foo();
+}
+
+

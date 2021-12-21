@@ -1,0 +1,5 @@
+interface hello {
+	void no(int x ); 
+	int hello(int x); 
+	myType hello(theirType x, otherType z); 
+}

@@ -1,0 +1,5 @@
+interface hello {}
+
+interface bye {}
+
+class a implements hello, bye, no {}

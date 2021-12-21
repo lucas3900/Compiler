@@ -1,0 +1,10 @@
+int bar()
+{
+   return;
+}
+
+void main()
+{
+  bar();
+}
+

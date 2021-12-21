@@ -1,0 +1,21 @@
+class hello {
+	int x;
+	void setter(int x) {
+		this.x = x;
+	}
+	int getter() {
+		return x;
+	}
+}
+
+
+void main(){
+	hello y;
+	hello[] x;
+	
+	x = NewArray(2, hello);
+	y = New(hello);
+	y.setter(2);
+	x[0] = y;
+	Print(x[0].getter());
+}

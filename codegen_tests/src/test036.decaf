@@ -1,0 +1,14 @@
+void foo(int [] Ary)
+{
+  Print(Ary[0]);
+}	
+
+void main()
+{
+  int [] [] A;
+  int [] B;
+  B = NewArray(23, int);
+  B[0] = 43;
+  foo(B);
+}
+

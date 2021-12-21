@@ -1,0 +1,22 @@
+
+class A {
+  int fact(int x) 
+  { 
+    if (x == 0)
+      return 1;
+    return x * fact(x-1);
+  }
+}
+
+class B extends A {}
+
+void main()
+{
+  B a;
+  a = New(B);
+  Print(a.fact(6));
+}
+
+/* Output:
+720
+*/

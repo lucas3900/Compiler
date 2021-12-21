@@ -1,0 +1,20 @@
+int bar (int v) 
+{
+  return fact(v - 1);
+}	
+
+int fact(int s)
+{
+  if (s == 0)
+    return 1;
+  return s * bar(s);
+}
+
+void main()
+{
+  Print(fact(5));
+}
+
+/* Output:
+120
+*/

@@ -1,0 +1,18 @@
+interface x {}
+
+
+class y implements x {}
+
+class w extends y {}
+
+
+void main ()
+{
+	y blake;
+	x lucas;
+	w ian;
+	lucas = ian;
+	blake = ian;
+	// blake = lucas;
+	ian = blake;
+}

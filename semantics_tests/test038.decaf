@@ -1,0 +1,11 @@
+void main()
+{
+  int [] A;
+  A = NewArray(10, int);
+  A[0] = 4;
+  Print(A[0]);
+}
+
+/* Output:
+4
+*/

@@ -1,0 +1,237 @@
+/* starting with variable declarations, the easiest */
+foo bar;
+bar baz;
+string g;
+thing[] one;
+thing
+[]
+[]  // discover bug in my lexer where the return type on this token was wrong.
+two; // (fixed)
+
+/* added just the very smallest possible function declarations
+string foo() {}
+void print() {}
+int fact(int n) {}
+int fact_iter(int n, int k) {}
+
+/* expanded stmtblock to include var decls and statement, just break for now */
+int fact(int n) {
+  int x;
+  foo y;
+  break;
+}
+
+/* Added expressions, but missing some base cases
+   Here just identifiers and constants */
+int fact(int n)
+{
+  int x;
+  foo y;
+  x = x + 1;
+  y = x * x - y * y;
+  truthy = a / 8 < b + c * - d;
+}
+
+/* Commented-out because it shouldn't parse. assignment and Relational
+ operators do not associate in decaf. */
+/*
+void shouldnotparse()
+{
+   a = b = c;
+   x = a < b < c;
+   y = a == b != c;
+}
+*/
+
+/* These are okay because of parentheses. We will deal with them
+   during semantic analysis. */
+void shouldparse()
+{
+   x = a < b == c;
+   x = (a < b) < c;
+   y = (a==b) != c;
+}
+
+/* Finally getting into the stuff we learned in the iffylab */
+void matchedif()
+{
+   if (x == 4)
+      return 8;
+   else
+      Print(x - 2); // also added Print :-)
+}
+
+/* Added unmatched if */
+int fact(int n)
+{
+  // getting close to having a real function parseable!
+  if (n == 0) // unmatched if
+    return 1;
+  return n * fact * (n - 1); // baloney, because I still don't
+                             // have Call implemented
+}
+
+/* added matched and unmatched while.
+   Now I can parse a function that does something. */
+int fact(int n)
+{
+   int result;
+   result = 1;
+   while (n > 1) {
+      result = result * n;
+      n = n - 1;
+   }
+   return result;
+}
+
+/* Let's see how we do with matching else properly */
+void fun()
+{
+   if (a == b)
+      if (c == d)
+         if (e == f) {
+           if (g == h)
+              x;
+         }
+         else
+           y;
+}
+
+/* and mixing if with while? */
+void morefun()
+{
+   if (a1 == b1)
+      while (c1 < d1)
+         if (g1 == h1)
+            x1;
+   else
+     y1; // fooled you! should match with inner if!
+
+// versus
+   if (a2 == b2)
+      while (c2 < d2) {
+         if (g2 == h2)
+            x2;
+      }
+         else
+            y2; // matches outer if
+}
+
+/* added for loops */
+void forfun(int n) // get it?
+{
+   int i;
+   int j;
+   int k;
+   int m;
+   for (i = 0; i < n; i = i + 1)
+      Print(i);
+   for (j = 0; j < n;) // increment optional
+   {
+      Print(j);
+      j = j + 1;
+   }
+   k = 0;
+   for (;k < n; k = k + 1) // initialization optional
+                          // (someone needs to add a ++ operator to decaf.)
+   {
+      Print(k);
+   }
+   m = 0;
+   for (;m < n;) // both optional
+   {
+      Print(m);
+      m = m + 1;
+   }
+   /* DOES NOT PARSE, condition is not optional
+   for (;;)
+     Print(n);
+*/
+
+}
+
+/* Added simple call (just ident, not field access yet) */
+int fact(int n)
+{
+   if (n == 0)
+      return 1;
+   return n * fact(n - 1);
+}
+
+/* added class declarations */
+class boring
+{
+
+}
+
+class multiinterface implements foo,bar,baz
+{  int instanceVar;
+   void print()
+   {
+     Print(instanceVar);
+   }
+}
+
+class umbrella extends thing implements toggleable
+{
+   bool closed;
+
+   void toggle()
+   {
+      closed = !closed;
+   }
+   void open()
+   {
+     closed = false;
+   }
+   void close()
+   {
+     closed = true;
+   }
+}
+
+/* Finished adding interfaces. Improved my grammar by declaring a
+function_header non-terminal that can be used by both prototypes
+and function declarations. */
+
+interface toggleable {
+   void toggle();
+}
+
+interface comparable {
+   int compareTo(Object obj);
+}
+
+/* Now back to finishing up expressions. */
+
+/* Field accesses, calls on complex expressions, array references */
+
+void reallyfun()
+{
+   x = thing.field;
+   y = thing.fn(y);
+   z = some.containedarray[45];
+   a = b + c.d.e()[0];
+   q = r.d(e())[0].f();
+}
+
+/* this and built-ins */
+
+void last()
+{
+   int x;
+   string y;
+   int [] a;
+   umbrella [] u;
+   x = this.y();
+   a = NewArray(10, int);
+   u = NewArray(11, umbrella); // note that it's ok for umbrella to be
+                               // an IDENTIFIER rather than TYPEIDENTIFIER here.
+   x = ReadInteger();
+   y = ReadLine();
+   for (x = 0; i < 11; x = x + 1)
+      u[x] = New(umbrella);
+   Print(a,b,fact(5)+1,d);  // multi-print has worked for a
+                            // while, here is an example
+   /* Print(); // doesn't compile. */
+}

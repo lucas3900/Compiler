@@ -1,0 +1,9 @@
+class hello {
+	int x;
+}
+
+void main(){
+	double y;
+	hello z;
+	y = z.x;
+}

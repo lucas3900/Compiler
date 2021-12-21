@@ -1,0 +1,8 @@
+
+void main()
+{
+  int [] [] A;
+  int [] B;
+  A[0] = B;
+}
+

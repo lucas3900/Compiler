@@ -1,0 +1,5 @@
+interface herro 
+{
+	int herro();
+	string goodbye();
+}

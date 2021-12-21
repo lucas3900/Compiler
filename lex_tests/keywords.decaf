@@ -1,0 +1,5 @@
+void int double bool string class interface null this
+extends implements for while if else return break New NewArray Print
+ReadInteger ReadLine
+// fails
+// keywords are read as type identifiers

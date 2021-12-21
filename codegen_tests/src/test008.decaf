@@ -1,0 +1,17 @@
+void main()
+{
+  int x;
+  int y;
+  x = 0;
+  while (x < 4) {
+    Print("Hello, world");
+    x = x + 1;
+  }
+}
+
+/* Output:
+Hello, world
+Hello, world
+Hello, world
+Hello, world
+*/

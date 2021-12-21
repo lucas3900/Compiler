@@ -1,0 +1,7 @@
+int math()
+{
+	int x;
+	double y;
+	x = 1 + 1;
+	return x;
+}

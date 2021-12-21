@@ -1,0 +1,19 @@
+void main() {
+	if (true)
+		while (false)
+			if (false)
+				value = 42;
+			else 
+				value = 41;
+	else if (true)
+		for (x = 1; x < 90; x = x + 1)
+			if (x == 100)
+				value = 48;
+			else
+				value = 128;
+	else
+		for (x = 1; x < 90; x = x + 1)
+			if (false)
+				value = 129;
+		
+}

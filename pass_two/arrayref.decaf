@@ -1,0 +1,10 @@
+class blake {}
+
+void main(){
+	int[] x;
+	blake[] y;
+	x = NewArray(10, int);
+	y = NewArray(10, blake);
+	x[0] = 1;
+	Print(x[0]);
+}

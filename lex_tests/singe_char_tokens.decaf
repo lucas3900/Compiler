@@ -1,0 +1,3 @@
++ - * / % \ < > = ! ; , . [ ] ( ) { }
+// fails
+// read [ ] as array, not '[' then ']'

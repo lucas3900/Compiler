@@ -1,0 +1,29 @@
+class A {
+	int b; 
+	int c;
+
+	void color(int x, int y) {
+		b = x;
+		c = y;
+	}	
+}
+
+class B extends A {
+
+	void print() {
+		Print(b, " ", c);	
+	}
+}
+
+void main() {
+	B x; 
+	A y;
+
+	x = New(B);
+
+	y = x;
+
+	y.color(12, 55);
+
+	x.print();
+}

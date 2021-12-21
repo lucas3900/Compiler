@@ -1,0 +1,16 @@
+1
+2
+// 3
+// 4
+// 5
+// this should be ignored
+
+7
+/* let us see if multiline comment is ignored
+
+
+
+
+*/
+10
+// passes

@@ -1,0 +1,17 @@
+int x;
+
+class A {
+  int x;
+  void set(int y) { x = y; }
+  int get() { return x; }
+}
+
+void main()
+{
+  A a;
+  a = New(A);
+  a.set(5);
+  x = 6;
+  Print(a.x);
+}
+

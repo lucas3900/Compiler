@@ -1,0 +1,27 @@
+
+class A {
+  int func() 
+  { 
+    Print("Hi Mom!"); 
+    return 5;
+  }
+}
+
+void func()
+{
+  Print("Hi Dad!");
+}
+
+void main()
+{
+  A a;
+  a = New(A);
+  Print(a.func());
+  func();
+}
+
+/* Output:
+Hi Mom!
+5
+Hi Dad!
+*/

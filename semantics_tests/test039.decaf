@@ -1,0 +1,8 @@
+void main()
+{
+  int [] A;
+  A = NewArray(10.2, int);
+  A[0] = 4;
+  Print(A[0]);
+}
+

@@ -1,0 +1,9 @@
+
+class Z extends Y {}
+class Y extends X {}
+class X extends Z {}
+
+void main()
+{
+}
+

@@ -1,0 +1,3 @@
+class hello extends y {}
+
+class y {}

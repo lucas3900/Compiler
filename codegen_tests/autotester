@@ -1,0 +1,20 @@
+#! /usr/bin/bash
+
+# `cat semantics_tests/MANIFEST | sed 48q | grep -oE 'test[0-9][0-9][0-9]'`e
+alias jasmin="java -jar ~acampbel/jasmin.jar"
+rm -f errors.txt
+
+rm -f *.j *.class *.decaf
+for f in src/*.decaf
+do
+	
+	f=`basename $f .decaf`
+	echo $f
+	cp src/$f.decaf .
+	../decafc $f.decaf 2> /dev/null
+	java -jar ~acampbel/jasmin.jar *.j > /dev/null 2> /dev/null
+	f="${f}_"
+	java $f  > out/$f.output
+
+	rm -f *.j *.class *.decaf
+done

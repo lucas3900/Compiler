@@ -1,0 +1,7 @@
+void main(){
+	double x;
+	string[] y;
+	y = NewArray(10, string);
+	x = y.length();
+
+}

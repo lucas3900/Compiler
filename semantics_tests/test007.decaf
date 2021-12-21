@@ -1,0 +1,11 @@
+int x;
+
+void main()
+{
+  int x;
+  int y;
+  bool z;
+  x = 6;
+  y = 7;
+  x = x < y;
+}

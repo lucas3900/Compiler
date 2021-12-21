@@ -1,0 +1,10 @@
+void main()
+{
+  int x;
+  x = 4 + 1;
+  Print(x);
+}
+
+/* Output:
+5
+*/

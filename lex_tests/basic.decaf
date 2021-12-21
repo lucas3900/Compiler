@@ -1,0 +1,4 @@
+string "hello I am String"
+int 7
+double 7.7
+bool true

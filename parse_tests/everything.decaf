@@ -1,0 +1,69 @@
+int x;
+hello y;
+
+
+int main(){
+
+}
+
+void foo(int x, string y, hello goodbye) {
+
+}
+
+class indentifier {
+
+}
+
+class woo extends woooo implements sad,dd , ds , dfgf {
+
+}
+
+interface adsas {
+
+}
+
+
+
+int func(hello y, asd a, int q){
+	if (y == 2){
+		a = 3;
+	} else q = 5;
+
+	func(a, a, a);
+
+	x = y[4];
+
+	x = "lksjdfls";
+
+	if (q == true)
+		asd = this;
+		if (!true) 
+			{ dasd = null; }
+		else
+			isad9 = (1 + 313 / 123 + (idenfei + (main() * 3) - 3));
+
+}
+
+
+class nasd implements q, z, s {
+	int x;
+	int y;
+	void cunun() {}
+	string herll(int z, as f){
+		what = this.value;
+		q = !true;
+		yay = boo + 77;
+		yay = ReadLine();
+		for(x = 1; x == 1; x = x + 1)
+		{
+		if (x == 4)
+			return x + 2;
+		}
+		Print("HI");
+		return "non";	
+	}
+	void func2() {
+		Print("Hi, this is weird", 23, 4.323);
+		return;
+	}
+}

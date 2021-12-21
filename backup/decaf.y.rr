@@ -1,0 +1,291 @@
+/* These are the tokens.
+   By convention (in CS 310) they have numbers starting with 260. Take care that
+   this list exactly matches the array of strings declared in token.cc. These tokens are only used for multi-character tokens. Single-character tokens
+   map to their characters directly.
+*/
+%token T_VOID 260 "void"
+%token T_INT 261 "int"
+%token T_DOUBLE 262 "double"
+%token T_BOOL 263 "bool"
+%token T_STRING 264 "string"
+%token T_CLASS 265 "class"
+%token T_INTERFACE 266 "interface"
+%token T_NULL 267 "null"
+%token T_THIS 268 "this"
+%token T_EXTENDS 269 "extends"
+%token T_IMPLEMENTS 270 "implements"
+%token T_FOR 271 "for"
+%token T_WHILE 272 "while"
+%token T_IF 273 "if"
+%token T_ELSE 274 "else"
+%token T_RETURN 275 "return"
+%token T_BREAK 276 "break"
+%token T_NEW 277 "New"
+%token T_NEWARRAY 278 "NewArray"
+%token T_PRINT 279 "Print"
+%token T_READINTEGER 280 "ReadInteger"
+%token T_READLINE 281 "ReadLine"
+%token T_IDENTIFIER 282  
+%token T_TYPEIDENTIFIER 283
+%token T_BOOLLITERAL 284
+%token T_INTLITERAL 285
+%token T_DBLLITERAL 286
+%token T_STRINGLITERAL 287
+%token T_LE 288 "<="
+%token T_GE 289 ">="
+%token T_EQ 290 "=="
+%token T_NEQ 291 "!="
+%token T_AND 292 "&&" 
+%token T_OR 293  "||"
+%token T_ARRAY 294 "[]"
+
+%{
+#include "parsetree.h"
+#define YYSTYPE parse_tree *
+int yylex();
+extern bool semantic_checks; // defined in the compiler main file.
+
+/* We need this to see syntax errors. */
+int yyerror(char const *s)
+{
+   std::cout << "line " << current_line << ": ";
+   std::cout << s << std::endl;
+   // exit at the first error.
+   exit(1);
+}
+
+%}
+
+%define parse.error verbose
+
+%%
+
+/* Debugging hint: if you want to test part of the grammar in isolation,
+* change this line rather than using the %start directive from yacc/bison.
+* (Crucially, this line sets the "top" variable.)
+*/
+pgm: program { top = $$ = $1; }
+
+/* Language grammar follows:
+*/
+
+program: decl { $$ = new parse_tree("program", 1, $decl); }
+| program decl { $1 -> add_child($decl); $$ = $1; }
+
+decl: variable_decl | function_decl | class_decl | interface_decl
+
+// functions
+function_decl: type identifier '(' formals ')' stmt_block 
+	{ $$ = new parse_tree("functiondecl", 4, $type, $identifier, $formals, $stmt_block); }
+| void identifier '(' formals ')' stmt_block 
+	{ $$ = new parse_tree("functiondecl", 4, $void, $identifier, $formals, $stmt_block); }
+
+formals: { $$ = new parse_tree("formals"); } 
+| formals[in] variable ',' {$in->add_child($variable); $$ = $in; }
+| formals[in] variable {$in->add_child($variable); $$ = $in; }
+
+stmt_block: '{' variable_decl_func stmts  '}' 
+	{ $$ = new parse_tree("stmtblock", 2, $variable_decl_func, $stmts); }
+
+variable_decl_func: { $$ = new parse_tree("vardecls"); }
+| variable_decl_func[in] variable_decl { $in->add_child($variable_decl); $$ = $in; }
+
+// variables
+variable_decl: variable ';' { $$ = $variable; }
+variable: type identifier { $$ = new parse_tree("variable", 2, $type, $identifier);  }
+
+type: primtype | arraytype | usertype 
+primtype: integer { $$ = new parse_tree("primtype", 1, $1); }
+| double { $$ = new parse_tree("primtype", 1, $1); }
+| bool { $$ = new parse_tree("primtype", 1, $1); }
+| string { $$ = new parse_tree("primtype", 1, $1); } 
+
+arraytype: primtype "[]" { $$ = new parse_tree("arraytype", 1, $1); }
+|  		   usertype "[]" { $$ = new parse_tree("arraytype", 1, $1); }
+
+usertype:  typeidentifier { $$ = new parse_tree("usertype", 1, $1); }
+
+// class
+class_decl: class typeidentifier extends_decl implements_decl '{' field '}'
+{$$ = new parse_tree("class", 4, $typeidentifier, $extends_decl, $implements_decl, $field); }
+| class identifier extends_decl implements_decl '{' field '}'
+{$$ = new parse_tree("class", 4, $identifier, $extends_decl, $implements_decl, $field); }
+
+extends_decl: {$$ = nullptr; }
+| extends identifier {$$ = new parse_tree("extends", 1, $identifier); }
+| extends typeidentifier {$$ = new parse_tree("extends", 1, $typeidentifier); }
+
+implements_decl: {$$ = nullptr; }
+| implements identifier { $$ = new parse_tree("implements", 1, $identifier); }
+| implements_decl[in] ',' identifier {$in->add_child($identifier); $$ = $1; }
+
+field : {$$ = new parse_tree("fields"); }
+| field[in] variable_decl {$in->add_child($variable_decl); $$ =  $1; }
+| field[in] function_decl {$in->add_child($function_decl); $$ =  $1; }
+
+interface_decl: interface identifier '{' prototypes '}'
+{ $$ = new parse_tree("interface", 2, $identifier, $prototypes); }
+
+prototypes: {$$ = new parse_tree("prototypes"); }
+| prototypes[in] prototype {$[in]-> add_child($prototype); $$ = $[in]; }
+
+prototype: type identifier '(' formals ')' ';' 
+	{$$ = new parse_tree("prototype", 3, $type, $identifier, $formals); }
+| void identifier '(' formals ')' ';'
+	{$$ = new parse_tree("prototype", 3, $void, $identifier, $formals); }
+
+stmts: { $$ = new parse_tree("stmts"); } 
+| stmts[in] stmt { $in-> add_child($stmt); $$ = $in; }
+
+stmt: matched_stmt | unmatched_stmt 
+
+
+matched_stmt: print_stmt 
+| break_stmt 
+| return_stmt 
+| nullable_expr ';'
+| matched_if
+| matched_for
+| matched_while
+| stmt_block
+
+unmatched_stmt: unmatched_if
+| unmatched_for
+| unmatched_while
+
+common_if: "if" '(' expr ')' { $$ = $expr; }
+matched_if: common_if matched_stmt[one] "else" stmt[two]
+	{$$ = new parse_tree("if", 3, $common_if, $one, $two); }
+unmatched_if: common_if stmt
+	{$$ = new parse_tree("if", 3, $common_if, $stmt, nullptr); }
+
+common_while: "while" '(' expr ')' { $$ = $expr;}
+matched_while: common_while matched_stmt { $$ = new parse_tree("while", 2, $common_while, $matched_stmt); }
+unmatched_while: common_while unmatched_stmt { $$ = new parse_tree("while", 2, $common_while, $unmatched_stmt); }
+
+matched_for: "for" '(' nullable_expr[one] ';' expr ';'  nullable_expr[two] ')' matched_stmt { $$ = new parse_tree("for", 4, $one, $expr, $two, $matched_stmt); }
+unmatched_for: "for" '(' nullable_expr[one] ';' expr ';'  nullable_expr[two] ')' unmatched_stmt { $$ = new parse_tree("for", 4, $one, $expr, $two, $unmatched_stmt); }
+
+print_stmt: print '(' actuals ')' ';' {$$ = new parse_tree("print", 2, $print, $actuals); }
+break_stmt: break ';' { $$ = new parse_tree("break", 1, $break); }
+return_stmt: return ';' { $$ = new parse_tree("return", 1, $return); }
+| return expr ';' { $$ = new parse_tree("return", 2, $return, $expr); }
+
+
+nullactuals: {$$ = new parse_tree("actuals"); }
+| nullactuals[in] expr {$[in]->add_child($expr); $$ = $in; }
+| nullactuals[in] ',' expr {$[in]->add_child($expr); $$ = $in; }
+
+actuals: expr {$$ = new parse_tree("actuals", 1, $expr); }
+| actuals[in] ',' expr {$[in]->add_child($expr); $$ = $in; }
+
+
+op: level_one
+
+level_one: identifier level_one_ops level_two
+	{ $$ = new parse_tree("binop", 3, $identifier, $level_one_ops, $level_two);}
+| level_two
+
+level_two:  level_three level_two_ops  level_two[in]
+	{$$ = new parse_tree("binop", 3, $level_three, $level_two_ops, $in); } 
+| level_three
+
+level_three: level_four level_three_ops level_three[in]
+	{$$ = new parse_tree("binop", 3, $level_four, $level_three_ops, $in); } 
+| level_four
+
+level_four: level_five level_four_ops level_four[in]
+	{$$ = new parse_tree("binop", 3, $level_five, $level_four_ops, $in); } 
+| level_five
+
+level_five: level_six level_five_ops level_five[in]
+	{$$ = new parse_tree("binop", 3, $level_six, $level_five_ops, $in); } 
+| level_six
+
+level_six: level_seven plus_rule level_six[in]
+	{$$ = new parse_tree("binop", 3, $level_seven, $plus_rule, $in); }
+|          level_seven minus_rule level_six[in]
+	{$$ = new parse_tree("binop", 3, $level_seven, $minus_rule, $in); } 
+| level_seven
+
+level_seven: level_eight level_seven_ops level_seven[in]
+	{$$ = new parse_tree("binop", 3, $level_eight, $level_seven_ops, $in); } 
+| level_eight
+
+level_eight: minus_rule level_eight[in] 
+	{ $$ = new parse_tree("uop", 2, $minus_rule, $in); }
+| excl level_eight[in] { $$ = new parse_tree("uop", 2, $excl, $in); }
+| level_nine
+
+level_nine: fieldaccess '(' nullactuals ')' { $$ = new parse_tree("call", 2, $fieldaccess, $nullactuals); }
+| identifier '(' nullactuals ')' { $$ = new parse_tree("call", 2, $identifier, $nullactuals); }
+| level_nine[in] '[' expr ']' {$$ = new parse_tree("aref", 2, $in, $expr); }
+| level_ten
+
+fieldaccess: level_nine[in] '.' identifier {$$ = new parse_tree("fieldaccess", 2, $in, $identifier); }
+
+level_ten: constants | fieldaccess| identifier | '(' expr ')' {$$ = $expr;} 
+
+level_one_ops: '=' {$$ = new parse_tree(mytok); } 
+level_two_ops: or 
+level_three_ops: and 
+level_four_ops: eq | neq
+level_five_ops:  le | ge | '<' { $$ = new parse_tree(mytok); }
+| '>' { $$ = new parse_tree(mytok); }
+
+level_seven_ops: '%' {$$ = new parse_tree(mytok); }
+| '*' {$$ = new parse_tree(mytok); }
+| '/' {$$ = new parse_tree(mytok); }
+
+excl: '!' {$$ = new parse_tree(mytok); }
+
+plus_rule: '+' { $$ = new parse_tree(mytok); }
+minus_rule: '-' { $$ = new parse_tree(mytok); }
+
+expr: op | readint '(' ')' | readline '(' ')' | this | null
+| newarray '(' intliteral ',' type ')' { $$ = new parse_tree("newarray", 2, $intliteral, $type); } 
+| new '(' identifier ')' { $$ = new parse_tree("new", 1, $identifier); } 
+
+nullable_expr: | expr
+
+//call: identifier '(' nullactuals ')' { $$ = new parse_tree("call", 2,  $identifier, $nullactuals);}
+//| fieldaccessexpr '(' nullactuals ')' { $$ = new parse_tree("call", 2, $fieldaccessexpr, $nullactuals); }
+
+//fieldaccessexpr: expr '.' identifier 
+//	{ $$ = new parse_tree ("fieldaccess", 2, $expr, $identifier); }
+
+constants: intliteral | doubleliteral | stringliteral | boolliteral 
+
+/* terminal-building productions below */
+intliteral: T_INTLITERAL { $$ = new parse_tree(mytok); }
+doubleliteral: T_DBLLITERAL { $$ = new parse_tree(mytok); }
+stringliteral: T_STRINGLITERAL {$$ = new parse_tree(mytok); }
+boolliteral: T_BOOLLITERAL {$$ = new parse_tree(mytok); }
+identifier: T_IDENTIFIER { $$ = new parse_tree(mytok); }
+typeidentifier: T_TYPEIDENTIFIER { $$ = new parse_tree(mytok); } 
+void: T_VOID {$$ = new parse_tree(mytok); }
+interface: T_INTERFACE { $$ = new parse_tree(mytok); }
+class: T_CLASS { $$ = new parse_tree(mytok); }
+extends: T_EXTENDS {$$ = new parse_tree(mytok); }
+implements: T_IMPLEMENTS {$$ = new parse_tree(mytok); }
+print: T_PRINT { $$ = new parse_tree(mytok); }
+break: T_BREAK {$$ = new parse_tree(mytok); }
+return: T_RETURN {$$ = new parse_tree(mytok); }
+eq: T_EQ {$$ = new parse_tree(mytok); }
+neq: T_NEQ {$$ = new parse_tree(mytok); }
+le: T_LE {$$ = new parse_tree(mytok); }
+ge: T_GE {$$ = new parse_tree(mytok); }
+and: T_AND {$$ = new parse_tree(mytok); }
+or: T_OR {$$ = new parse_tree(mytok); }
+readint: T_READINTEGER {$$ = new parse_tree(mytok); }
+readline: T_READLINE {$$ = new parse_tree(mytok); }
+new: T_NEW {$$ = new parse_tree(mytok); }
+newarray: T_NEWARRAY {$$ = new parse_tree(mytok); }
+integer: T_INT {$$ = new parse_tree(mytok); }
+double: T_DOUBLE {$$ = new parse_tree(mytok); } 
+string: T_STRING {$$ = new parse_tree(mytok); }
+bool: T_BOOL {$$ = new parse_tree(mytok); }
+this: T_THIS {$$ = new parse_tree(mytok); }
+null: T_NULL  {$$ = new parse_tree(mytok); }
+
+%%

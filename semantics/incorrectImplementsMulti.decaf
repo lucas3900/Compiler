@@ -1,0 +1,19 @@
+interface foo {
+	void hello(int x, string y);
+	int bar();
+	string wahh();
+}
+
+class a implements foo, blake {
+	void hello(int x, string y) {}
+	int bar() { return -1; }
+	string wahh() {}
+	string asd() {}
+	int arg(int hello, string x) {}
+}
+
+
+interface blake {
+	int arg(int x, int y);
+	string asd();
+}

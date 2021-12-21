@@ -1,0 +1,25 @@
+
+class A {
+  void func() 
+  { 
+    Print("Hi mom!"); 
+  }
+}
+
+void func()
+{
+  Print("Hi Dad!");
+}
+
+void main()
+{
+  A a;
+  a = New(A);
+  a.func();
+  func();
+}
+
+/* Output:
+Hi mom!
+Hi Dad!
+*/

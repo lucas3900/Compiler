@@ -1,0 +1,9 @@
+class helloClass {}
+class myLovelyClass extends helloClass implements goodbye, whatsup {
+
+int x;
+hello y;
+
+void nothankyou() {}
+
+}

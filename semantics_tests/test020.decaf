@@ -1,0 +1,9 @@
+void foo(string s)
+{
+  Print(s);
+}
+
+void main()
+{
+  foo(5);
+}

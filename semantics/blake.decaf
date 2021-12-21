@@ -1,0 +1,33 @@
+my_calls x;
+string y;
+
+interface inter1 {
+	void color(int x);
+}
+
+class my_calls implements inter1 {
+	int colors	;	
+
+	void color(int x) {
+		color = x;
+	}
+}
+
+int func(inter1 val) {
+	val.color(4);
+}
+
+int math() {
+	return 1;
+}
+
+void main() {
+	int q;
+	double r;
+	my_calls sample;
+	func(sample);
+	my_calls = null;
+	y = "hello";
+	q = 7 + 3 - (8 * math());
+	r = 7.7 - 2.0;
+}

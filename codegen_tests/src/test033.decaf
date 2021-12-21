@@ -1,0 +1,10 @@
+
+
+void main()
+{
+  int [] [] A;
+  A = NewArray(20, int[]);
+  A[0] = NewArray(13, int);
+  A[0][1] = 4;
+}
+

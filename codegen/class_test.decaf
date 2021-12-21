@@ -1,0 +1,20 @@
+class A {
+	int x;
+
+	void setter(int val) {
+		this.x = val;
+		
+	}
+
+	void printer(A other) {
+		Print(this.x);
+	}
+}
+
+void main() {
+	A v;
+	v = New(A);
+	v.setter(3);
+
+	v.printer(v);
+}

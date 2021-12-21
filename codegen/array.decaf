@@ -1,0 +1,13 @@
+class A {}
+
+void main() {
+	int[] x;
+	
+	x = NewArray(20, int);
+	
+	x[17] = 95;
+
+	Print(x.length());
+
+
+}

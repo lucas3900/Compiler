@@ -1,0 +1,26 @@
+// int literals
+1
+2
+3
+012
+0x12aE
+0X0
+
+// bool literals
+true
+false
+
+// double literals
+12.
+0.12
+5.68
+12.2e+2
+4.252E+8
+2.2222e-12
+0454.878e+8
+
+// string constants
+"hello there"
+"what you up to?"
+
+// passes

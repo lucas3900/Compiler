@@ -1,0 +1,14 @@
+int x;
+
+void main()
+{
+  int x;
+  int y;
+  x = 0;
+  while (x) {
+    Print("Hello, world");
+    if (x % 2 == 0) 
+      Print("Even!", x);
+    x = x + 1;
+  }
+}

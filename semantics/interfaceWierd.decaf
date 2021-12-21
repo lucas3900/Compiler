@@ -1,0 +1,9 @@
+interface hllo {
+int y();
+string y();
+}
+
+class bye implements hllo {
+	int y() {}
+	string y() {}
+}

@@ -1,0 +1,7 @@
+
+class x {
+	int y;
+	void blake(){
+		this.z = 1;
+	}
+}

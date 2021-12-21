@@ -1,0 +1,22 @@
+// just identifier
+hello
+
+// add number to not have hello as typeidentifier
+1
+
+// now test type identifier
+hello there
+
+// break identifier chain
+2
+
+// two type identifiers in a row
+hello the432432re sir_
+
+3
+
+// newline separating identifiers
+what you
+want
+
+// passes

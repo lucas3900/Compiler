@@ -1,0 +1,4 @@
+interface foo {}
+
+class hello implements foo, bar {}
+void bar() {}

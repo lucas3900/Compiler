@@ -1,0 +1,13 @@
+class z {
+	int y;
+}
+
+class q extends z {
+	int l;
+}
+
+class x extends q {
+	void blake(){
+		this.y = 1;
+	}
+}

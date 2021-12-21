@@ -1,0 +1,7 @@
+void main()
+{
+  int [] A;
+  A = NewArray(42, int);
+  A[0] = 4;
+}
+

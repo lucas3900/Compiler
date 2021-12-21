@@ -1,0 +1,43 @@
+class A {
+	int b;
+	int c;
+
+	void clear() {
+		b = 0;
+		c = this.b;	
+	}
+}
+
+class B extends A {
+	int d;
+	int e;
+
+	void color(int x, int y) {
+		b = x;
+		c = y;	
+	}
+
+	void configure() {
+		d = b;
+		e = c;
+	}
+	
+	void print() {
+		Print("b=", b, " c=", c, " d=", d, " e=", e);
+	}
+}
+
+void main() {
+	B x;
+
+	x = New(B);
+	x.color(5, 2354);
+
+	x.configure();
+
+	x.print();
+
+	x.clear();
+
+	x.print();
+}

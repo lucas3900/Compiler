@@ -1,0 +1,9 @@
+void foo()
+{
+  Print("Hello, world!");
+}
+
+void main()
+{
+  bar();
+}

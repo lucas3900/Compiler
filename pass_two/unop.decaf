@@ -1,0 +1,8 @@
+void main(){
+	int x;
+	bool y;
+	bool z;
+	z = false;
+	x = -2;
+	y = !z;
+}

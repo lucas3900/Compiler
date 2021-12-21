@@ -1,0 +1,9 @@
+void fact(int s)
+{
+  Print(s);
+}
+
+void main()
+{
+  fact(fact(5));
+}

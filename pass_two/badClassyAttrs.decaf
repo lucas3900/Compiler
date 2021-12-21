@@ -1,0 +1,9 @@
+class hello {
+	int x;
+	double y;
+}
+
+void main() {
+	hello z;
+	z.q;
+}

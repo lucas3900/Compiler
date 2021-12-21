@@ -1,0 +1,27 @@
+class A implements Getter, Setter {
+  int x;
+  void set(int y) { x = y; }
+  void add(A other) { x = x + other.x; }
+  int get() { return x; }  
+}
+
+class B extends A {}
+
+interface Setter {
+  void set(int x);
+}
+
+interface Getter {
+  int get();
+}
+
+
+void main()
+{
+   Setter s;
+   A a;
+   B b;
+   b = New(B);
+   s = b;
+}
+

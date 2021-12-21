@@ -1,0 +1,12 @@
+int x;
+
+void main()
+{
+  int x;
+  int y;
+  for (x = 0; true ; x = x + 1) {
+    Print("Hello, world");
+    if (x % 2 == 0) 
+      Print("Even!", x);
+  }
+}

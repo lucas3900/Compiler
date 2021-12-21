@@ -1,0 +1,6 @@
+int x;
+
+void main()
+{
+  Print("Hello, world!");
+}

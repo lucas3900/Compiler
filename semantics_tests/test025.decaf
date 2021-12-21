@@ -1,0 +1,12 @@
+int fact(int s)
+{
+  Print(s);
+  if (s == 0)
+    return "Hi mom!";
+  return s * fact(s - 1);
+}
+
+void main()
+{
+  fact(5);
+}

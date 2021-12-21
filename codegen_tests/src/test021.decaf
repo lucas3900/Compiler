@@ -1,0 +1,13 @@
+void fact(int s)
+{
+  Print(s);
+}
+
+void main()
+{
+  fact(5);
+}
+
+/* Output:
+5
+*/

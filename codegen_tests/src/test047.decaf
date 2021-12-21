@@ -1,0 +1,18 @@
+
+class A {
+  void func() 
+  { 
+    Print("Hi mom!"); 
+  }
+}
+
+void main()
+{
+  A a;
+  a = New(A);
+  a.func();
+}
+
+/* Output:
+Hi mom!
+*/

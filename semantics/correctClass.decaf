@@ -1,0 +1,12 @@
+interface foo {}
+
+
+class a extends b implements foo, bar {
+	void herro(int x) {}
+}
+
+class b {}
+
+interface bar {
+	void herro(int x);
+}
